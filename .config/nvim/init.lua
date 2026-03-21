@@ -46,5 +46,18 @@ vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 require "oil".setup({ view_options = { show_hidden = true, } })
 vim.keymap.set('n', '<leader>e', ":Oil<CR>")
 
+vim.keymap.set('n', '<leader>w', "<C-w>w")
 
 vim.keymap.set('n', '<leader>o', "<cmd>put = ''<CR>", { desc="Insert new line below" })
+
+
+vim.g.vrc_output_buffer_name = '__VRC_OUTPUT.json'
+vim.g.vrc_auto_format_response_patterns = {
+				json = 'jq .'
+}
+
+-- Turn on auto-format (it's on by default; keep here for clarity)
+vim.g.vrc_auto_format_response_enabled = 1
+
+-- If your API responses omit headers, tell VRC to assume JSON
+vim.g.vrc_response_default_content_type = 'application/json'
