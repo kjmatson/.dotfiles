@@ -1,0 +1,17 @@
+[terminal.shell]
+program = "wsl.exe"
+args = ["~"]
+
+
+[[keyboard.bindings]]
+key = "Space"
+mods = "Control"
+chars = "\u0000"
+
+[general]
+live_config_reload = true
+
+[window]
+startup_mode = "Maximized"
+padding = { x = 10, y = 10}
+dynamic_padding = true

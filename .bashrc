@@ -124,6 +124,24 @@ export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 export PS1='[\W]\$ '
 
 # Only pulls DNS from active (Up) network interfaces
-powershell.exe -Command "Get-NetAdapter | Where-Object { \$_.Status -eq 'Up' } | Get-DnsClientServerAddress -AddressFamily IPv4 | Select-Object -ExpandProperty ServerAddresses | ForEach-Object { 'nameserver ' + \$PSItem }" | tr -d '\r' | sudo tee /etc/resolv.conf > /dev/null
+#powershell.exe -Command "Get-NetAdapter | Where-Object { \$_.Status -eq 'Up' } | Get-DnsClientServerAddress -AddressFamily IPv4 | Select-Object -ExpandProperty ServerAddresses | ForEach-Object { 'nameserver ' + \$PSItem }" | tr -d '\r' | sudo tee /etc/resolv.conf > /dev/null
+{
+  echo "search vitro.com"
+  powershell.exe -Command "
+    Get-NetAdapter |
+    Where-Object { \$_.Status -eq 'Up' } |
+    Get-DnsClientServerAddress -AddressFamily IPv4 |
+    Select-Object -ExpandProperty ServerAddresses |
+    ForEach-Object { 'nameserver ' + \$PSItem }
+  "
+} | tr -d '\r' | sudo tee /etc/resolv.conf > /dev/null
 
 alias config='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
+export PATH="$PATH:/opt/mssql-tools18/bin"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="/home/.cargo/bin:$PATH"
+
+
+if [[ -z "$TMUX" ]] && [ "$SSH_CONNECTION" == "" ]; then
+    tmux attach-session -t default || tmux new-session -s default
+fi
