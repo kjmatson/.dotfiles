@@ -6,6 +6,20 @@ vim.o.tabstop = 2
 vim.o.swapfile = false
 vim.o.signcolumn = "yes"
 vim.o.clipboard = "unnamedplus"
+
+if vim.env.SSH_TTY ~= nil then
+	vim.g.clipboard = {
+		name = 'OSC 52',
+		copy = {
+			['+'] = require('vim.ui.clipboard.osc52').copy('+'),
+			['*'] = require('vim.ui.clipboard.osc52').copy('*'),
+		},
+		paste = {
+			['+'] = require('vim.ui.clipboard.osc52').paste('+'),
+			['*'] = require('vim.ui.clipboard.osc52').paste('*'),
+		},
+	}
+end
 vim.g.mapleader = " "
 vim.o.termguicolors = true
 vim.opt.completeopt = { "menuone", "noselect", "popup" }
