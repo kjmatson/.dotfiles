@@ -130,7 +130,7 @@ alias config='git --git-dir=$HOME/.dotfiles --work-tree=$HOME'
 
 ## tmux auto-attach
 if type -q tmux
-    if not test -n "$TMUX"
+    if not test -n "$TMUX"; and not test -n "$SSH_CONNECTION"
         tmux attach-session -t default; or tmux new-session -s default
     end
 end
