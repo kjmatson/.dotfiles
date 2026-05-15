@@ -134,3 +134,5 @@ if type -q tmux
         tmux attach-session -t default; or tmux new-session -s default
     end
 end
+
+export PATH="$HOME/.local/bin:$PATH"
